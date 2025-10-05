@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Doctors | Aquatic Dog spot</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body { margin:0; font-family:Arial,sans-serif; background:#fff; color:#333; }
+
+    /* Navbar */
+    header {
+      background: #ff9800;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+    }
+    .logo img {
+      height: 50px;
+      width: auto;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+    nav a:hover,
+    nav a.active {
+      text-decoration: underline;
+    }
+    /* Search Bar */
+    .search-bar {
+      flex:1;
+      display:flex;
+      justify-content:center;
+    }
+    .search-box {
+      display:flex;
+      align-items:center;
+      background:#fff;
+      border-radius:12px;
+      padding:8px 14px;
+      width: 500px;
+      max-width: 100%;
+    }
+    .search-box select, .search-box input {
+      border:none;
+      outline:none;
+      background:transparent;
+      font-size:14px;
+    }
+    .search-box input {
+      flex:1;
+      padding:8px 10px;
+    }
+    .search-box button {
+      background:transparent;
+      border:none;
+      cursor:pointer;
+      font-size:16px;
+      color:#ff9800;
+    }
+
+    /* Layout */
+    .container { display:flex; margin:20px; flex-wrap:wrap; }
+
+    /* Sidebar */
+    .sidebar { width:250px; padding:15px; border-right:1px solid #ddd; }
+    .sidebar h3 { margin-top:0; font-size:18px; color:#444; }
+    .filter-group { margin-bottom:20px; }
+    .filter-group label { display:block; margin-bottom:8px; cursor:pointer; font-size:14px; }
+
+    /* Doctors grid */
+    .grid {
+      flex:1; display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+      gap:20px; padding:0 20px;
+    }
+    .card {
+      border:1px solid #ddd; border-radius:12px; overflow:hidden;
+      transition:0.3s; background:#fafafa; position:relative;
+    }
+    .card:hover { transform:translateY(-5px); box-shadow:0 6px 15px rgba(0,0,0,0.2); }
+    .card img { width:100%; height:180px; object-fit:cover; }
+    .card-content { padding:15px; }
+    .card h4 { margin:0 0 10px; font-size:18px; color:#444; }
+    .card p { margin:5px 0; font-size:14px; color:#666; }
+    .rating { color:#ff9800; font-size:14px; }
+    .btn {
+      display:inline-block; background:#ff9800; color:#fff; padding:8px 12px;
+      text-decoration:none; border-radius:20px; margin-top:10px;
+      transition:0.3s;
+    }
+    .btn:hover { background:#e68900; }
+
+    /* Modal */
+    .modal {
+      display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.5); justify-content:center; align-items:center;
+    }
+    .modal-content {
+      background:#fff; padding:20px; border-radius:10px; width:350px;
+      box-shadow:0 6px 15px rgba(0,0,0,0.2);
+    }
+    .modal-content h3 { margin-top:0; color:#ff9800; }
+    .modal-content label { display:block; margin:8px 0 5px; font-size:14px; }
+    .modal-content input, .modal-content select {
+      width:100%; padding:8px; margin-bottom:10px; border:1px solid #ccc; border-radius:6px;
+    }
+    .modal-content button {
+      background:#ff9800; color:#fff; border:none; padding:10px; border-radius:6px;
+      width:100%; cursor:pointer; font-size:15px;
+    }
+    .modal-content button:hover { background:#e68900; }
+    .close { position:absolute; top:10px; right:20px; cursor:pointer; font-size:20px; color:#fff; }
+
+    /* Footer */
+    .footer-main {
+      display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:30px; background:#333; color:#fff; padding:40px 20px;
+    }
+    .footer-main h3 { margin-bottom:12px; font-size:16px; font-weight:600; color:#ff9800; }
+    .footer-main a { display:block; color:#ddd; margin:6px 0; text-decoration:none; font-size:14px; }
+    .footer-main a:hover { color:#fff; }
+    .footer-main p { font-size:14px; line-height:1.6; color:#ccc; }
+    .footer-social { display:flex; gap:15px; margin:10px 0; }
+    .footer-social a { color:#fff; font-size:18px; transition:0.3s; }
+    .footer-social a:hover { color:#ff9800; }
+    .footer-bottom { background:#222; color:#ccc; text-align:center; padding:15px; font-size:14px; }
+  </style>
+</head>
+<body>
+
+<!-- Navbar (Copied from index.html) -->
+<header>
+  <div class="navbar">
+    <div class="logo">
+      <a href="index.html"><img src="logo.png" alt="PetCare Shop Logo"></a>
+    </div>
+    <div class="search-bar">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search doctors...">
+        <button><i class="fa fa-search"></i></button>
+      </div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="doctors.html" class="active">Doctors</a>
+      <a href="vaccination.html">Vaccination</a>
+      <a href="#">Contact</a>
+      <a href="#"><i class="fa fa-shopping-cart"></i></a>
+    </nav>
+  </div>
+</header>
+
+<!-- Page Content -->
+<div class="container">
+  <!-- Sidebar Filters -->
+  <aside class="sidebar">
+    <div class="filter-group">
+      <h3>Specialization</h3>
+      <label><input type="checkbox" value="Veterinarian" class="filter"> Veterinarian</label>
+      <label><input type="checkbox" value="Surgeon" class="filter"> Surgeon</label>
+      <label><input type="checkbox" value="Dermatologist" class="filter"> Dermatologist</label>
+    </div>
+    <div class="filter-group">
+      <h3>Location</h3>
+      <label><input type="checkbox" value="Delhi" class="filter"> Delhi</label>
+      <label><input type="checkbox" value="Mumbai" class="filter"> Mumbai</label>
+      <label><input type="checkbox" value="Kolkata" class="filter"> Kolkata</label>
+    </div>
+  </aside>
+
+  <!-- Doctors Grid -->
+  <section class="grid" id="doctorGrid"></section>
+</div>
+
+<!-- Modal for Booking -->
+<div class="modal" id="bookingModal">
+  <div class="modal-content">
+    <h3>Book Appointment</h3>
+    <label for="petOwner">Your Name</label>
+    <input type="text" id="petOwner" placeholder="Enter your name" required>
+    <label for="petType">Pet Type</label>
+    <select id="petType" required>
+      <option value="">-- Select Pet --</option>
+      <option>Dog</option>
+      <option>Cat</option>
+      <option>Bird</option>
+      <option>Other</option>
+    </select>
+    <label for="date">Preferred Date</label>
+    <input type="date" id="date" required>
+    <label for="time">Preferred Time</label>
+    <input type="time" id="time" required>
+    <label for="contact">Contact Number</label>
+    <input type="tel" id="contact" placeholder="10-digit number" pattern="[0-9]{10}" required>
+    <button onclick="submitBooking()">Confirm Booking</button>
+  </div>
+</div>
+
+<!-- Footer (Copied from index.html) -->
+<section class="footer-main">
+  <div>
+    <h3>ABOUT</h3>
+    <a href="#">Contact Us</a>
+    <a href="#">About Us</a>
+    <a href="#">Careers</a>
+    <a href="#">PetCare Stories</a>
+  </div>
+  <div>
+    <h3>SERVICES</h3>
+    <a href="#">Pet Grooming</a>
+    <a href="#">Vet Consultation</a>
+    <a href="#">Pet Training</a>
+    <a href="#">Adoption</a>
+  </div>
+  <div>
+    <h3>HELP</h3>
+    <a href="#">Payments</a>
+    <a href="#">Shipping</a>
+    <a href="#">Returns</a>
+    <a href="#">FAQ</a>
+  </div>
+  <div>
+    <h3>Mail Us</h3>
+    <p>PetCare Shop Pvt Ltd,<br> 123 Paw Street, Green Valley,<br> Bengaluru, India</p>
+    <h3>Social</h3>
+    <div class="footer-social">
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-x-twitter"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+</section>
+<div class="footer-bottom">© 2025 Aquatic Dog spot | All Rights Reserved</div>
+
+<script>
+  const doctors = [
+    { name:"Dr. Ramesh Gupta", specialization:"Veterinarian", location:"Delhi", experience:"10 yrs", fee:"₹500", rating:4, img:"https://via.placeholder.com/250x180?text=Doctor+1" },
+    { name:"Dr. Sneha Kapoor", specialization:"Surgeon", location:"Mumbai", experience:"8 yrs", fee:"₹700", rating:5, img:"https://via.placeholder.com/250x180?text=Doctor+2" },
+    { name:"Dr. Arjun Das", specialization:"Dermatologist", location:"Kolkata", experience:"12 yrs", fee:"₹600", rating:4, img:"https://via.placeholder.com/250x180?text=Doctor+3" },
+    { name:"Dr. Meera Nair", specialization:"Veterinarian", location:"Mumbai", experience:"6 yrs", fee:"₹450", rating:3, img:"https://via.placeholder.com/250x180?text=Doctor+4" },
+    { name:"Dr. Karan Patel", specialization:"Surgeon", location:"Delhi", experience:"15 yrs", fee:"₹1000", rating:5, img:"https://via.placeholder.com/250x180?text=Doctor+5" },
+  ];
+
+  const grid = document.getElementById("doctorGrid");
+  const filters = document.querySelectorAll(".filter");
+  const searchInput = document.getElementById("searchInput");
+  const modal = document.getElementById("bookingModal");
+
+  function renderDoctors(list) {
+    grid.innerHTML = "";
+    if(list.length === 0) {
+      grid.innerHTML = "<p>No doctors match your filters.</p>";
+      return;
+    }
+    list.forEach(doc => {
+      grid.innerHTML += `
+        <div class="card">
+          <img src="${doc.img}" alt="${doc.name}">
+          <div class="card-content">
+            <h4>${doc.name}</h4>
+            <p><b>Specialization:</b> ${doc.specialization}</p>
+            <p><b>Location:</b> ${doc.location}</p>
+            <p><b>Experience:</b> ${doc.experience}</p>
+            <p><b>Fee:</b> ${doc.fee}</p>
+            <p class="rating">${"⭐".repeat(doc.rating)}</p>
+            <a href="#" class="btn" onclick="openBooking()">Book Appointment</a>
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  function applyFilters() {
+    const activeFilters = Array.from(filters).filter(f => f.checked).map(f => f.value.toLowerCase());
+    const query = searchInput.value.toLowerCase();
+    const filtered = doctors.filter(doc => {
+      const matchesFilter = activeFilters.length === 0 ||
+        activeFilters.includes(doc.specialization.toLowerCase()) ||
+        activeFilters.includes(doc.location.toLowerCase());
+      const matchesSearch = doc.name.toLowerCase().includes(query);
+      return matchesFilter && matchesSearch;
+    });
+    renderDoctors(filtered);
+  }
+
+  function openBooking() { modal.style.display = "flex"; }
+  function submitBooking() {
+    alert("Your appointment has been booked successfully!");
+    modal.style.display = "none";
+  }
+  window.onclick = function(event) {
+    if(event.target === modal) modal.style.display = "none";
+  }
+
+  filters.forEach(f => f.addEventListener("change", applyFilters));
+  searchInput.addEventListener("input", applyFilters);
+  renderDoctors(doctors);
+</script>
+</body>
+</html>

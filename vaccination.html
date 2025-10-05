@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>Aquatic Dog Spot | Vaccination</title>
+  <style>
+    body { margin:0; font-family:Arial,sans-serif; background:#fff; color:#333; }
+
+    /* Sticky Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background:#ff9800;
+      color:#fff;
+      padding:15px 30px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    header h1 { margin:0; flex:0 0 auto; margin-left:20px; }
+    nav a { color:#fff; margin:0 10px; text-decoration:none; font-weight:500; }
+    nav a:hover { text-decoration:underline; }
+
+   /* Search Bar */
+    .search-bar {
+      flex:1;
+      display:flex;
+      justify-content:center;
+    }
+    .search-box {
+      display:flex;
+      align-items:center;
+      background:#fff;
+      border-radius:12px; /* rectangular with curves */
+      padding:8px 14px;
+      width: 500px; /* longer search bar */
+      max-width: 100%;
+    }
+    .search-box select {
+      border:none;
+      outline:none;
+      background:transparent;
+      font-size:14px;
+      margin-right:8px;
+    }
+    .search-box input {
+      flex:1;
+      border:none;
+      outline:none;
+      padding:8px 10px;
+      font-size:14px;
+    }
+    .search-box button {
+      background:transparent;
+      border:none;
+      cursor:pointer;
+      font-size:16px;
+      color:#ff9800;
+    }
+    /* Vaccination Grid */
+    .vaccination { 
+      display:grid; 
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); 
+      gap:20px; 
+      padding:40px 20px; 
+    }
+    .card {
+      border:1px solid #eee;
+      border-radius:10px;
+      padding:15px;
+      background:#fff;
+      text-align:center;
+      transition:0.2s;
+    }
+    .card:hover { transform:translateY(-5px); box-shadow:0 5px 15px rgba(0,0,0,0.1); }
+    .card img { width:100%; height:160px; object-fit:cover; border-radius:10px; }
+    .btn { background:#ff9800; color:#fff; padding:8px 15px; border:none; border-radius:5px; cursor:pointer; margin-top:10px; }
+    .btn:hover { background:#e68900; }
+
+    /* Booking Form */
+    .booking-form {
+      max-width:600px;
+      margin:40px auto;
+      padding:20px;
+      background:#f9f9f9;
+      border-radius:10px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    }
+    .booking-form h2 { text-align:center; color:#ff9800; margin-bottom:20px; }
+    .booking-form label { display:block; margin-bottom:8px; font-weight:600; }
+    .booking-form input, .booking-form select {
+      width:100%;
+      padding:10px;
+      margin-bottom:15px;
+      border:1px solid #ccc;
+      border-radius:6px;
+      font-size:14px;
+    }
+    .booking-form button {
+      width:100%;
+      background:#ff9800;
+      color:#fff;
+      padding:12px;
+      border:none;
+      border-radius:6px;
+      font-size:16px;
+      cursor:pointer;
+    }
+    .booking-form button:hover { background:#e68900; }
+
+    /* Footer */
+    .footer-main {
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap:30px;
+      background:#333;
+      color:#fff;
+      padding:40px 20px;
+    }
+    .footer-main h3 { color:#ff9800; font-size:16px; margin-bottom:10px; }
+    .footer-main a { color:#ddd; text-decoration:none; display:block; margin:5px 0; }
+    .footer-main a:hover { color:#fff; }
+    .footer-main p { font-size:14px; color:#ccc; }
+    .footer-social { display:flex; gap:15px; margin-top:10px; }
+    .footer-social a { color:#fff; font-size:18px; }
+    .footer-social a:hover { color:#ff9800; }
+
+    .footer-bottom { background:#222; color:#ccc; text-align:center; padding:15px; font-size:14px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <!-- Logo -->
+    <h1>
+      <a href="index.html">
+        <img src="logo.png" alt="PetCare Shop Logo" style="height:50px; width:auto;">
+      </a>
+    </h1>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <div class="search-box">
+        <select>
+          <option>Products</option>
+          <option>Pet</option>
+          <option>Services</option>
+        </select>
+        <input type="text" placeholder="Search vaccinations, pets and more">
+        <button><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="doctors.html">Doctors</a>
+      <a href="vaccination.html" style="text-decoration:underline;">Vaccination</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h2>Pet Vaccination Services</h2>
+    <p>Protect your furry friends with timely vaccinations. Book your slot today!</p>
+  </div>
+
+  <!-- Vaccination Plans -->
+  <section>
+    <h2 style="text-align:center;">Available Vaccination Packages</h2>
+    <div class="vaccination">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1583337130417-f1a5a26f62d0?w=400" alt="Dog Vaccination">
+        <h3>Puppy & Dog Vaccination</h3>
+        <p>Essential vaccines for rabies, parvo, and distemper.</p>
+        <p><strong>₹1500</strong></p>
+        <button class="btn">Book Now</button>
+      </div>
+      <div class="card">
+        <img src="https://placekitten.com/400/250" alt="Cat Vaccination">
+        <h3>Kitten & Cat Vaccination</h3>
+        <p>Vaccines for feline flu, rabies, and panleukopenia.</p>
+        <p><strong>₹1200</strong></p>
+        <button class="btn">Book Now</button>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1561948955-570b270e7c36?w=400" alt="Bird Vaccination">
+        <h3>Bird Vaccination</h3>
+        <p>Protect your parrots and other birds from common diseases.</p>
+        <p><strong>₹900</strong></p>
+        <button class="btn">Book Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Form -->
+  <section class="booking-form">
+    <h2>Book Vaccination Slot</h2>
+    <form>
+      <label for="name">Owner's Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+      <label for="pet">Pet Type</label>
+      <select id="pet" name="pet" required>
+        <option value="">Select Pet</option>
+        <option>Dog</option>
+        <option>Cat</option>
+        <option>Bird</option>
+        <option>Fish</option>
+        <option>Rabbit</option>
+        <option>Horse</option>
+      </select>
+
+      <label for="date">Preferred Date</label>
+      <input type="date" id="date" name="date" required>
+	  
+	  <label for="time">Preferred time</label>
+      <input type="time" id="time" name="time" required>
+	  
+      <label for="contact">Contact Number</label>
+      <input type="tel" id="contact" name="contact" placeholder="Enter your phone number" required>
+
+      <button type="submit">Submit Booking</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <section class="footer-main">
+    <div>
+      <h3>ABOUT</h3>
+      <a href="#">Contact Us</a>
+      <a href="#">About Us</a>
+      <a href="#">Careers</a>
+      <a href="#">PetCare Stories</a>
+      <a href="#">Press</a>
+    </div>
+    <div>
+      <h3>SERVICES</h3>
+      <a href="#">Pet Grooming</a>
+      <a href="#">Vet Consultation</a>
+      <a href="#">Pet Training</a>
+      <a href="#">Adoption</a>
+    </div>
+    <div>
+      <h3>HELP</h3>
+      <a href="#">Payments</a>
+      <a href="#">Shipping</a>
+      <a href="#">Cancellation & Returns</a>
+      <a href="#">FAQ</a>
+    </div>
+    <div>
+      <h3>Mail Us</h3>
+      <p>PetCare Shop Pvt Ltd,<br>123 Paw Street, Green Valley,<br>Bengaluru, Karnataka - 560103, India</p>
+      <h3>Social</h3>
+      <div class="footer-social">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-x-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-bottom">
+    © 2025 Aquatic Dog Spot | All Rights Reserved
+  </div>
+
+</body>
+</html>
+```
